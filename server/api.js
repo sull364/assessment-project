@@ -25,15 +25,4 @@ router.delete("/delete", fileController.deleteItem, (req, res) => {
   return res.status(200).json("item deleted");
 })
 
-// router.put("/update", fileController.updateItem, (req, res) => {
-//   console.log('update')
-//   return res.status(200).json("item updated");
-// })
-
-
-// =============== CREATE NEW USER, SIGNUP =============== //
-// router.post("/signup", fileController.createUser, (req, res) => {
-//   res.status(200).render("../list.html")
-// })
-
 module.exports = router;

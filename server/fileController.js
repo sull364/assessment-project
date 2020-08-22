@@ -6,19 +6,28 @@ const modelsSQL = require("./models-sql.js");
 const fileController = {};
 
 fileController.verifyUser = (req, res, next) => {
-  // console.log("req.body: ", req.body)
-  // console.log("req.query: ", req.query)
-  // console.log("req.params: ", req.params)
-  const { email, password } = req.body;
-  // console.log("email: ", email);
-  // console.log("password: ", password);
 
+  console.log("req.body: ", req.body)
+  console.log("req.query: ", req.query)
+  console.log("req.params: ", req.params)
+  const { email, password } = req.body;
+  console.log("email: ", email);
+  console.log("password: ", password);
+
+
+  // ============== MONGO DATABASE ============== //
+  // models.Users.findOne({ email: email })
+  //   .then(data => console.log('models.Users data: ', data))
+  //   .catch(err => console.log('models.Users error: ', err))
+
+
+  // ============== SQL DATABASE ============== //
   const queryString = `SELECT * FROM USERS WHERE email=$1`;
   const queryValues = [email]
 
   db.query(queryString, queryValues)
     .then(data => {
-      // console.log('data.rows: ', data.rows);
+      console.log('data.rows: ', data.rows);
       if (data.rows[0].password == password) {
         res.cookie('email', email);
         console.log('second line of try block HIT ME')
@@ -33,15 +42,17 @@ fileController.verifyUser = (req, res, next) => {
         message: { err: "An error occurred in fileController.verifyUser" },
       });
     })
-  // console.log('last line of verifyUser')
+  // ============== SQL DATABASE ============== //
+
+  console.log('last line of verifyUser')
 };
 
 
 fileController.createItem = (req, res, next) => {
-  // console.log("req.cookie: ", req.cookies)
-  // console.log("req.body: ", req.body)
-  // console.log("req.query: ", req.query)
-  // console.log("req.params: ", req.params)
+  console.log("req.cookie: ", req.cookies)
+  console.log("req.body: ", req.body)
+  console.log("req.query: ", req.query)
+  console.log("req.params: ", req.params)
   const { title } = req.body;
   const { email } = req.cookies;
 
@@ -84,10 +95,10 @@ fileController.getItems = (req, res, next) => {
 }
 
 fileController.deleteItem = (req, res, next) => {
-  // console.log('first line in deleteItem HIT ME')
+  console.log('first line in deleteItem HIT ME')
   const { title } = req.body;
-  // console.log('req.body: ', req.body);
-  // console.log('req.body.title: ', title);
+  console.log('req.body: ', req.body);
+  console.log('req.body.title: ', title);
   const queryString = `DELETE FROM lists WHERE title=$1;`;
   const queryValues = [title]
   db.query(queryString, queryValues)
@@ -102,26 +113,6 @@ fileController.deleteItem = (req, res, next) => {
       });
     })
 }
-
-// fileController.updateItem = (req, res, next) => {
-//   console.log('first line in update Item HIT ME')
-//   const { title } = req.body;
-//   console.log('req.body: ', req.body);
-//   console.log('req.body.title: ', title);
-//   const queryString = `UPDATE lists SET title=$1;`;
-//   const queryValues = [title]
-//   db.query(queryString, queryValues)
-//     .then(data => {
-//       console.log('====> fileController.updateItem');
-//       return next();
-//     })
-//     .catch(err => {
-//       return next({
-//         log: `An error occurred while getting updating list item: ${err}`,
-//         message: { err: "An error occurred in fileController.updateItem" },
-//       });
-//     })
-// }
 
 
 
