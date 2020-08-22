@@ -105,7 +105,7 @@ document.addEventListener('click', function (event) {
       .then((data) => {
         console.log('data: ', data);
         if (data == 'Item title already exists') {
-          alert('Itm cannot be an empty string or a duplicate item');
+          alert('Item must be non-empty text and cannot be a duplicate item');
           window.location.reload(true);
           // warning.style.color = "red";
           // warning.innerHTML = data;
@@ -205,12 +205,17 @@ document.addEventListener('click', function (event) {
   if (event.target.className === 'buttonUpdate') {
     console.log("event.target: ", event.target)
     console.log('event.target.id: ', event.target.id)
-    console.log('event.target.parentNode.parentNode: ', event.target.parentNode.parentNode)
     const number = event.target.id.split('').pop();
     console.log('number: ', number)
+    const updateButton = document.getElementById(event.target.id);
+    console.log('======> updateButton: ', updateButton)
+    const modalDiv = document.getElementById(`modal${number}`);
+    console.log('======> modalDiv: ', modalDiv)
 
-    const modalDiv = document.querySelector('.modal');
     modalDiv.style.display = "block"
+
+    console.log('event.target.parentNode.parentNode: ', event.target.parentNode.parentNode)
+
     buttonToUpdate = event.target.id;
     itemToUpdate = event.target.parentNode.parentNode;
 

@@ -35,5 +35,10 @@ router.get('/logout', fileController.removeCookie, (req, res) => {
   return res.status(200).json('LOGOUT');
 });
 
+router.post('/signup', fileController.createUser, (req, res) => {
+  console.log('=======> callback function line of router.logout')
+  return res.status(200).json('SIGNUP');
+});
+
 
 module.exports = router;

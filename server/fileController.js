@@ -41,10 +41,10 @@ fileController.verifyUser = (req, res, next) => {
 
 
 fileController.createItem = (req, res, next) => {
-  console.log("req.cookie: ", req.cookies)
-  console.log("req.body: ", req.body)
-  console.log("req.query: ", req.query)
-  console.log("req.params: ", req.params)
+  // console.log("req.cookie: ", req.cookies)
+  // console.log("req.body: ", req.body)
+  // console.log("req.query: ", req.query)
+  // console.log("req.params: ", req.params)
   const { title } = req.body;
   const { email } = req.cookies;
 
@@ -136,6 +136,37 @@ fileController.removeCookie = (req, res, next) => {
   res.clearCookie('__utmc');
   res.clearCookie('email');
   return next();
+}
+
+fileController.createUser = (req, res, next) => {
+  console.log('=====> fileController.createUser req.body:', req.body)
+  const { email, password, reenter } = req.body;
+  res.cookie('email', email);
+  const queryString = `INSERT INTO users (email, password) VALUES($1, $2) RETURNING email;`;
+  const queryValues = [email, password]
+
+  if (password == reenter) {
+    db.query(queryString, queryValues)
+      .then(data => {
+        console.log('====> fileController.createUser data.rows', data.rows);
+        return next();
+      })
+      .catch(err => {
+        console.log(typeof err);
+        console.log(err.message);
+        console.log(typeof err.message);
+        if (err.message == `duplicate key value violates unique constraint "users_email_key"`) {
+          res.json('Username already exists')
+        } else {
+          return next({
+            log: `An error occurred while getting creating new user: ${err}`,
+            message: { err: "An error occurred in fileController.createUser" },
+          });
+        }
+      })
+  } else {
+    return res.json('Passwords do not match')
+  }
 }
 
 module.exports = fileController;
