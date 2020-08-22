@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>To Do List</title>
+  <link href="style.css" rel="stylesheet" type="text/css">
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <h1>To Do List</h1>
+    <form class="loginForm" id="loginFormForm">
+
+      <h4 class="loginForm" id="loginTitle">Login</h4>
+
+      <label class="loginForm" id="loginEmailTitle" for="email">email:
+        <input class="loginForm" id="loginEmailText" type="text" name="email"><br>
+      </label><br>
+
+      <label class="loginForm" id="loginPasswordTitle" for="password">password:
+        <input class="loginForm" id="loginPasswordText" type="password" name="password">
+      </label><br>
+
+      <button type="submit" class="loginForm" id="loginButton">Login</button>
+
+    </form>
+
+    <form class="signupForm" id="signupFormForm">
+      <h4 class="signupForm" id="signupTitle">Signup</h4>
+      <label class="signupForm" id="signupEmailTitle" for="email">email:</label><br>
+      <input class="signupForm" id="signupEmailText" type="text" name="email"><br>
+      <label class="signupForm" id="signupEnterPasswordTitle" for="password">create password:</label><br>
+      <input class="signupForm" id="signupEnterPasswordText" type="password" name="password"><br>
+      <label class="signupForm" id="signupReenterPasswordTitle" for="password">re-enter password:</label><br>
+      <input class="signupForm" id="signupReenterPasswordText" type="password" name="password">
+      <button type="submit" class="signupForm" id="signupButton">Create Account</button>
+    </form>
+
+  </div>
+  <script src="client/index.js"></script>
+</body>
+
+</html>
