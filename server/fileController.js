@@ -68,10 +68,9 @@ fileController.createItem = (req, res, next) => {
       return next();
     })
     .catch(err => {
-      return next({
-        log: `An error occurred while creating list item: ${err}`,
-        message: { err: "An error occurred in fileController.createItem" },
-      });
+      res.json('Item title already exists');
+      console.log(`An error occurred while creating list item: ${err}`);
+      return;
     })
   // ============== SQL DATABASE ============== //
 

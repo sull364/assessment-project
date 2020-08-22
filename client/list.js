@@ -92,15 +92,26 @@ document.addEventListener('click', function (event) {
         return res.json()
       })
       .then((data) => {
-        // window.location.href = '/render.html'
         console.log('data: ', data);
-        allItems = data;
+        if (data == 'Item title already exists') {
+          alert(data);
+          window.location.reload(true);
+          // warning.style.color = "red";
+          // warning.innerHTML = data;
+          // const form = document.querySelector('form#listFormForm')
+          // form.append(warning);
+          // window.stop();
+        }
+        // window.location.href = '/render.html'
+        else {
+          allItems = data;
+        }
+        // window.stop();
       })
       .then((data) => {
         console.log('useless console.log data: ', data)
         window.location.reload(true);
       })
-
       .catch(err => {
         console.log('list.js post request error for /api/create: ', err)
       })
