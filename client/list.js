@@ -42,9 +42,15 @@ form.addEventListener('submit', (e) => {
       // window.location.href = '/render.html'
       console.log('data: ', data);
       allItems = data;
-
+    })
+    .then((data) => {
+      console.log('useless console.log data: ', data)
+      window.location.reload(true);
     })
 
+    .catch(err => {
+      console.log('list.js post request error for /api/create: ', err)
+    })
 
 
 })
