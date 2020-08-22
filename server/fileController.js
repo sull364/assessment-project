@@ -113,7 +113,27 @@ fileController.deleteItem = (req, res, next) => {
     })
 }
 
-
+fileController.updateItem = (req, res, next) => {
+  console.log('first line in update Item HIT ME')
+  const { oldTitle, newTitle } = req.body;
+  console.log('req.body: ', req.body);
+  console.log('req.body.oldTitle: ', oldTitle);
+  console.log('req.body.newTitle: ', newTitle);
+  const queryString = `UPDATE lists SET title=$1 WHERE title=$2 RETURNING title;`;
+  const queryValues = [newTitle, oldTitle]
+  db.query(queryString, queryValues)
+    .then(data => {
+      console.log('====> fileController.updateItem data.rows', data.rows);
+      res.locals.updated = data.rows[0].title;
+      return next();
+    })
+    .catch(err => {
+      return next({
+        log: `An error occurred while getting updating list item: ${err}`,
+        message: { err: "An error occurred in fileController.updateItem" },
+      });
+    })
+}
 
 
 

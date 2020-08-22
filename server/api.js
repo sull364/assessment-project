@@ -25,4 +25,9 @@ router.delete("/delete", fileController.deleteItem, (req, res) => {
   return res.status(200).json("item deleted");
 })
 
+router.patch("/update", fileController.updateItem, (req, res) => {
+  console.log('update')
+  return res.status(200).json(res.locals.updated);
+})
+
 module.exports = router;
