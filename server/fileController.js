@@ -82,7 +82,7 @@ fileController.getItems = (req, res, next) => {
   const queryString2 = `SELECT * FROM lists`;
   db.query(queryString2)
     .then(data => {
-      console.log('====> fileController.getItems, data.rows should be an array of objects: ', data.rows)
+      // console.log('====> fileController.getItems, data.rows should be an array of objects: ', data.rows)
       res.locals.items = data.rows;
       return next();
     })
@@ -94,7 +94,25 @@ fileController.getItems = (req, res, next) => {
     })
 }
 
-
+fileController.deleteItem = (req, res, next) => {
+  console.log('first line in deleteItem HIT ME')
+  const { title } = req.body;
+  console.log('req.body: ', req.body);
+  console.log('req.body.title: ', title);
+  const queryString = `DELETE FROM lists WHERE title=$1;`;
+  const queryValues = [title]
+  db.query(queryString, queryValues)
+    .then(data => {
+      console.log('====> fileController.deleteItem');
+      return next();
+    })
+    .catch(err => {
+      return next({
+        log: `An error occurred while getting deleting list item: ${err}`,
+        message: { err: "An error occurred in fileController.deleteItem" },
+      });
+    })
+}
 
 
 

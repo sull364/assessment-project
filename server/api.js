@@ -20,7 +20,10 @@ router.post("/create", fileController.createItem, (req, res) => {
   return res.status(200).json(res.locals.item);
 })
 
-
+router.delete("/delete", fileController.deleteItem, (req, res) => {
+  console.log('delete')
+  return res.status(200).json("item deleted");
+})
 
 
 

@@ -11,9 +11,10 @@ CREATE TABLE users
 CREATE TABLE lists
 (
   "listid" serial PRIMARY KEY,
-  "title" varchar NOT NULL,
+  "title" varchar NOT NULL CHECK ( title <> ''),
   "completed" boolean NOT NULL,
   "email" varchar NOT NULL,
+  UNIQUE(title),
   FOREIGN KEY (email) REFERENCES users (email)
 );
 

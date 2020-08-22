@@ -6,8 +6,23 @@ $(document).ready(() => {
 
       data.forEach((dataObj, index) => {
         let li = document.createElement('li');
+        let span = document.createElement('span');
+        let buttonUpdate = document.createElement('button');
+        let buttonDelete = document.createElement('button');
+        buttonUpdate.className = 'buttonUpdate';
+        buttonDelete.className = 'buttonDelete';
+        buttonUpdate.id = "buttonUpdate" + index;
+        buttonDelete.id = "buttonDelete" + index;
+        buttonUpdate.innerHTML = 'update';
+        buttonDelete.innerHTML = 'delete';
         li.innerHTML = dataObj.title
+        li.id = "list" + index;
+        span.append(buttonUpdate);
+        span.append(buttonDelete);
+        li.append(span);
         ol.append(li);
+        //ol.append(span);
+
       })
     })
     .catch(err => {
@@ -22,7 +37,6 @@ form.addEventListener('submit', (e) => {
 
   const item = document.querySelector('#listItemText').value;
   console.log('list.js item: ', item);
-
 
   console.log('it hit here');
   fetch('/api/create', {
@@ -51,8 +65,65 @@ form.addEventListener('submit', (e) => {
     .catch(err => {
       console.log('list.js post request error for /api/create: ', err)
     })
-
-
 })
 
+
+let itemToDelete;
+let buttonToDelete;
+document.addEventListener('click', function (event) {
+  event.preventDefault();
+  // console.log(event.target.id);
+
+  if (event.target.className === 'buttonDelete') {
+    console.log(event.target)
+    console.log(event.target.id)
+    console.log(event.target.parentNode.parentNode)
+    // console.log(event.target.parent.parent)
+    buttonToDelete = event.target.id;
+    itemToDelete = event.target.parentNode.parentNode;
+    const childNode = event.target.parentNode;
+    itemToDelete.removeChild(childNode);
+    console.log("itemToDelete.textContent: ", itemToDelete.textContent);
+    let item = itemToDelete.textContent;
+    console.log("itemText: ", item)
+    console.log('itemToDelete: ', itemToDelete)
+    console.log('buttonToDelete: ', typeof buttonToDelete)
+
+    fetch('/api/delete', {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ title: item })
+    })
+      .then((res) => {
+        // console.log(res);
+        // console.log('res received')
+        return res.json()
+      })
+      .then((data) => {
+        console.log('returned string: ', data)
+        if (data == "item deleted") {
+          itemToDelete.remove(itemToDelete)
+          // window.location.reload(true);
+        }
+      })
+
+      .catch(err => {
+        console.log('list.js delete request error for /api/delete: ', err)
+      })
+  }
+})
+
+// const buttonNode = document.getElementById(buttonToDelete);
+// buttonNode.addEventListener('submit', (e) => {
+//   e.preventDefault();
+
+//   const item = document.querySelector('#listItemText').value;
+//   console.log('list.js item: ', item);
+
+//   console.log('it hit here');
+
+// })
 
