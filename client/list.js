@@ -9,20 +9,63 @@ $(document).ready(() => {
         let span = document.createElement('span');
         let buttonUpdate = document.createElement('button');
         let buttonDelete = document.createElement('button');
+        // let modalDiv = document.createElement('div');
+        // let modalContent = document.createElement('div');
+        // let modalClose = document.createElement('span');
+        // let modalLabel = document.createElement('label');
+        // let modalInput = document.createElement('input');
+        // let modalButton = document.createElement('button');
+        // let modalForm = document.createElement('form');
+
+        // modalDiv.className = 'modal';
+        // modalDiv.id = "modal" + index;
+        // modalContent.className = 'modalContent';
+        // modalContent.className = 'animate-zoom';
+        // modalContent.id = "modalContent" + index;
+        // modalClose.className = 'modalClose';
+        // modalClose.id = "modalClose" + index;
+        // modalClose.innerHTML = "&times;"
+        // modalClose.onclick = () => { modalDiv.style.display = "none" };
+        // modalButton.className = 'modalButton';
+        // modalButton.id = "modalButton" + index;
+        // modalButton.setAttribute('type', 'submit')
+        // modalButton.onclick = () => { modalDiv.style.display = "none" };
+        // modalButton.innerHTML = "Update List Item";
+        // modalInput.className = 'modalInput';
+        // modalInput.id = "modalInput" + index;
+        // modalInput.setAttribute('type', 'text');
+        // modalInput.setAttribute('placeholder', 'Enter New List Item');
+        // modalLabel.className = 'modalLabel';
+        // modalLabel.id = "modalLabel" + index;
+        // modalLabel.innerText = "Update List Item";
+        // modalForm.className = 'modalForm';
+        // modalForm.id = "modalForm" + index;
+
+
+
         buttonUpdate.className = 'buttonUpdate';
         buttonDelete.className = 'buttonDelete';
         buttonUpdate.id = "buttonUpdate" + index;
         buttonDelete.id = "buttonDelete" + index;
         buttonUpdate.innerHTML = 'update';
+        // buttonUpdate.onclick = () => { modalDiv.style.display = "block" };
         buttonDelete.innerHTML = 'delete';
         li.innerHTML = dataObj.title
         li.id = "list" + index;
+
+        // modalForm.append(modalLabel);
+        // modalForm.append(modalInput);
+        // modalForm.append(modalButton);
+
+        // modalContent.append(modalClose);
+        // modalDiv.append(modalContent);
+        // modalDiv.append(modalForm);
+        // buttonUpdate.append(modalDiv);
+
         span.append(buttonUpdate);
         span.append(buttonDelete);
         li.append(span);
         ol.append(li);
-        //ol.append(span);
-
       })
     })
     .catch(err => {
@@ -30,8 +73,8 @@ $(document).ready(() => {
     })
 });
 
-const form = document.querySelector('.listContainer');
 
+const form = document.querySelector('button#listButton.listForm');
 form.addEventListener('submit', (e) => {
   e.preventDefault();
 
@@ -72,22 +115,20 @@ let itemToDelete;
 let buttonToDelete;
 document.addEventListener('click', function (event) {
   event.preventDefault();
-  // console.log(event.target.id);
 
   if (event.target.className === 'buttonDelete') {
-    console.log(event.target)
-    console.log(event.target.id)
-    console.log(event.target.parentNode.parentNode)
-    // console.log(event.target.parent.parent)
+    // console.log(event.target)
+    // console.log(event.target.id)
+    // console.log(event.target.parentNode.parentNode)
     buttonToDelete = event.target.id;
     itemToDelete = event.target.parentNode.parentNode;
     const childNode = event.target.parentNode;
     itemToDelete.removeChild(childNode);
-    console.log("itemToDelete.textContent: ", itemToDelete.textContent);
+    // console.log("itemToDelete.textContent: ", itemToDelete.textContent);
     let item = itemToDelete.textContent;
-    console.log("itemText: ", item)
-    console.log('itemToDelete: ', itemToDelete)
-    console.log('buttonToDelete: ', typeof buttonToDelete)
+    // console.log("itemText: ", item)
+    // console.log('itemToDelete: ', itemToDelete)
+    // console.log('buttonToDelete: ', typeof buttonToDelete)
 
     fetch('/api/delete', {
       method: 'DELETE',
@@ -116,14 +157,56 @@ document.addEventListener('click', function (event) {
   }
 })
 
-// const buttonNode = document.getElementById(buttonToDelete);
-// buttonNode.addEventListener('submit', (e) => {
-//   e.preventDefault();
 
-//   const item = document.querySelector('#listItemText').value;
-//   console.log('list.js item: ', item);
+// let itemToUpdate;
+// let buttonToUpdate;
+// document.addEventListener('click', function (event) {
+//   event.preventDefault();
 
-//   console.log('it hit here');
+//   if (event.target.className === 'buttonUpdate') {
+//     console.log("event.target: ", event.target)
+//     console.log('event.target.id: ', event.target.id)
+//     console.log('event.target.parentNode.parentNode: ', event.target.parentNode.parentNode)
+//     console.log('event.target.childNode: ', event.target.childNode)
 
+
+
+
+//     buttonToUpdate = event.target.id;
+//     itemToUpdate = event.target.parentNode.parentNode;
+//     // const newListTitle = event.target.childNode.lastChild.firstChild.nextSibling.value;
+//     // console.log("newListTitle :", newListTitle);
+//     // const childNode = event.target.parentNode;
+//     // itemToUpdate.replaceChild(newNode, childNode);
+//     console.log("itemToUpdate.textContent: ", itemToUpdate.textContent);
+//     let item = itemToUpdate.textContent;
+//     console.log("itemText: ", item)
+//     console.log('itemToUpdate: ', itemToUpdate)
+//     console.log('buttonToUpdate: ', typeof buttonToUpdate)
+
+//     fetch('/api/update', {
+//       method: 'PUT',
+//       headers: {
+//         'Accept': 'application/json',
+//         'Content-Type': 'application/json'
+//       },
+//       body: JSON.stringify({ title: item })
+//     })
+//       .then((res) => {
+//         // console.log(res);
+//         // console.log('res received')
+//         return res.json()
+//       })
+//       .then((data) => {
+//         console.log('returned string: ', data)
+//         if (data == "item Updated") {
+//           itemToUpdate.remove(itemToUpdate)
+//           // window.location.reload(true);
+//         }
+//       })
+
+//       .catch(err => {
+//         console.log('list.js Update request error for /api/Update: ', err)
+//       })
+//   }
 // })
-

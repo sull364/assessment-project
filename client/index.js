@@ -38,7 +38,7 @@ $(document).ready(function () {
 
   // =============== POST REQUEST FOR /LOGIN =============== //
   const loginForm = document.getElementById("loginFormForm");
-  console.log(loginForm);
+  // console.log("index.js loginFormForm:", loginForm);
 
   loginForm.addEventListener('submit', (e) => {
     e.preventDefault();
