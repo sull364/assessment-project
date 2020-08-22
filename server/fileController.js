@@ -72,7 +72,7 @@ fileController.createItem = (req, res, next) => {
 fileController.getItems = (req, res, next) => {
   console.log("req.cookie: ", req.cookies)
   const { email } = req.cookies;
-  const queryString = `SELECT * FROM lists WHERE email=$1`;
+  const queryString = `SELECT * FROM lists WHERE email=$1 ORDER BY listid ASC`;
   const queryValues = [email]
   db.query(queryString, queryValues)
     .then(data => {
