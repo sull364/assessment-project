@@ -74,50 +74,15 @@ $(document).ready(() => {
     })
 });
 
-// const form = document.querySelector('.listContainer');
-
-// form.addEventListener('submit', (e) => {
-//   e.preventDefault();
-//   console.log('==========> add button: ', e.target.id, e.target.className)
-//   const item = document.querySelector('#listItemText').value;
-//   console.log('list.js item: ', item);
-
-//   console.log('it hit here');
-//   fetch('/api/create', {
-//     method: 'POST',
-//     headers: {
-//       'Accept': 'application/json',
-//       'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify({ title: item })
-//   })
-//     .then((res) => {
-//       // console.log(res);
-//       // console.log('res received')
-//       return res.json()
-//     })
-//     .then((data) => {
-//       // window.location.href = '/render.html'
-//       console.log('data: ', data);
-//       allItems = data;
-//     })
-//     .then((data) => {
-//       console.log('useless console.log data: ', data)
-//       window.location.reload(true);
-//     })
-
-//     .catch(err => {
-//       console.log('list.js post request error for /api/create: ', err)
-//     })
-// })
 
 
-let itemToDelete;
-let buttonToDelete;
+// ==================== ANY BUTTON CLICKS ==================== //
+// ==================== ANY BUTTON CLICKS ==================== //
 document.addEventListener('click', function (event) {
   event.preventDefault();
-  // console.log(event.target.id);
 
+  // ==================== ADD ITEM ==================== //
+  // ==================== ADD ITEM ==================== //
   if (event.target.className === "listFormForm") {
     console.log('==========> add item button: ', event.target.id, event.target.className)
     const item = document.querySelector('#listItemText').value;
@@ -140,7 +105,7 @@ document.addEventListener('click', function (event) {
       .then((data) => {
         console.log('data: ', data);
         if (data == 'Item title already exists') {
-          alert(data);
+          alert('Itm cannot be an empty string or a duplicate item');
           window.location.reload(true);
           // warning.style.color = "red";
           // warning.innerHTML = data;
@@ -160,7 +125,12 @@ document.addEventListener('click', function (event) {
         console.log('list.js post request error for /api/create: ', err)
       })
   }
+  // ==================== ADD ITEM ==================== //
+  // ==================== ADD ITEM ==================== //
 
+
+  // ==================== DELETE ITEM ==================== //
+  // ==================== DELETE ITEM ==================== //
   if (event.target.className === 'buttonDelete') {
     console.log(event.target)
     console.log(event.target.id)
@@ -169,7 +139,7 @@ document.addEventListener('click', function (event) {
     console.log(event.target.parentNode.parentNode)
     // console.log(event.target.parent.parent)
     // buttonToDelete = event.target.id;
-    itemToDelete = event.target.parentNode.parentNode;
+    const itemToDelete = event.target.parentNode.parentNode;
     // const childNode = event.target.parentNode;
     // itemToDelete.removeChild(childNode);
     console.log("itemToDelete.textContent: ", itemToDelete.textContent);
@@ -199,7 +169,12 @@ document.addEventListener('click', function (event) {
         console.log('list.js delete request error for /api/delete: ', err)
       })
   }
+  // ==================== DELETE ITEM ==================== //
+  // ==================== DELETE ITEM ==================== //
 
+
+  // ==================== LOGOUT ==================== //
+  // ==================== LOGOUT ==================== //
   if (event.target.className == 'logoutButton') {
     fetch('/api/logout', {
       method: 'GET',
@@ -208,25 +183,25 @@ document.addEventListener('click', function (event) {
         'Content-Type': 'application/json'
       },
     })
-      .then((res) => {
-        console.log('res:', res);
-        // console.log('res received')
-        return res.json()
+      .then(data => {
+        console.log('logout fetch first .then: data: ', data)
+        return data.json()
       })
-      .then((data) => {
-        // window.location.href = '/render.html'
-        if (data === 'BOB POOP') {
+      .then(data => {
+        if (data === 'LOGOUT') {
           window.location.href = '../index.html'
-        }
-        if (data != 'BOB POOP') {
-          alert('Invalid password or username')
         }
       })
       .catch(err => {
-        console.log('index.js /api/login error: ', err)
+        console.log('index.js /api/logout error: ', err)
       })
   }
+  // ==================== LOGOUT ==================== //
+  // ==================== LOGOUT ==================== //
 
+
+  // ==================== UPDATE ==================== //
+  // ==================== UPDATE ==================== //
   if (event.target.className === 'buttonUpdate') {
     console.log("event.target: ", event.target)
     console.log('event.target.id: ', event.target.id)
@@ -288,4 +263,8 @@ document.addEventListener('click', function (event) {
       };
     }
   }
+  // ==================== UPDATE ==================== //
+  // ==================== UPDATE ==================== //
 })
+// ==================== ANY BUTTON CLICKS ==================== //
+// ==================== ANY BUTTON CLICKS ==================== //

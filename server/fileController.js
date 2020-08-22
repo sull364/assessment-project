@@ -6,22 +6,13 @@ const modelsSQL = require("./models-sql.js");
 const fileController = {};
 
 fileController.verifyUser = (req, res, next) => {
-
-  console.log("req.body: ", req.body)
-  console.log("req.query: ", req.query)
-  console.log("req.params: ", req.params)
+  // console.log("req.body: ", req.body)
+  // console.log("req.query: ", req.query)
+  // console.log("req.params: ", req.params)
   const { email, password } = req.body;
-  console.log("email: ", email);
-  console.log("password: ", password);
+  // console.log("email: ", email);
+  // console.log("password: ", password);
 
-
-  // ============== MONGO DATABASE ============== //
-  // models.Users.findOne({ email: email })
-  //   .then(data => console.log('models.Users data: ', data))
-  //   .catch(err => console.log('models.Users error: ', err))
-
-
-  // ============== SQL DATABASE ============== //
   const queryString = `SELECT * FROM USERS WHERE email=$1`;
   const queryValues = [email]
 
@@ -45,9 +36,7 @@ fileController.verifyUser = (req, res, next) => {
         message: { err: "An error occurred in fileController.verifyUser" },
       });
     })
-  // ============== SQL DATABASE ============== //
-
-  console.log('last line of verifyUser')
+  // console.log('last line of verifyUser')
 };
 
 
@@ -81,8 +70,11 @@ fileController.createItem = (req, res, next) => {
 }
 
 fileController.getItems = (req, res, next) => {
-  const queryString2 = `SELECT * FROM lists`;
-  db.query(queryString2)
+  console.log("req.cookie: ", req.cookies)
+  const { email } = req.cookies;
+  const queryString = `SELECT * FROM lists WHERE email=$1`;
+  const queryValues = [email]
+  db.query(queryString, queryValues)
     .then(data => {
       // console.log('====> fileController.getItems, data.rows should be an array of objects: ', data.rows)
       res.locals.items = data.rows;
@@ -139,8 +131,10 @@ fileController.updateItem = (req, res, next) => {
 }
 
 fileController.removeCookie = (req, res, next) => {
-  res.clearCookie('provider');
-  res.clearCookie('user');
+  res.clearCookie('__utmz');
+  res.clearCookie('__utma');
+  res.clearCookie('__utmc');
+  res.clearCookie('email');
   return next();
 }
 

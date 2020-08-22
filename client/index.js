@@ -66,47 +66,15 @@ $(document).ready(function () {
       })
       .then((data) => {
         // window.location.href = '/render.html'
-        if (data === 'BOB POOP') {
+        if (data === 'LOGIN') {
           window.location.href = '../list.html'
         }
-        if (data != 'BOB POOP') {
+        if (data != 'LOGIN') {
           alert('Invalid password or username')
         }
       })
       .catch(err => {
         console.log('index.js /api/login error: ', err)
       })
-
-    // fetch('/api/login', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Accept': 'application/json',
-    //     'Content-type': 'application/json'
-    //   },
-    //   body: JSON.stringify(
-    //     { email: email, password: password })
-    //   // credentials: 'include',
-    // })
-    //   .then(res => {
-    //     console.log('I am in res');
-    //     return res.json()
-    //   })
-    //   .then(data => {
-    //     console.log(data);
-    //     window.location.href = "../list.html"
-    //   })
-    //   .catch(err => {
-    //     console.log('get request error for api/login: ', err)
-    //   })
-
-    // axios.get("/api/login", user)
-    //   .then(res => res.json())
-    //   .then(data => console.log(data))
-    //   .catch(err => {
-    //     console.log('get request error for api/login: ', err)
-    //   })
-
-
   });
-
 });
