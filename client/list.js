@@ -1,5 +1,22 @@
+$(document).ready(() => {
+  fetch('/api')
+    .then(res => res.json())
+    .then(data => {
+      const ol = document.querySelector('.actualList');
+
+      data.forEach((dataObj, index) => {
+        let li = document.createElement('li');
+        li.innerHTML = dataObj.title
+        ol.append(li);
+      })
+    })
+    .catch(err => {
+      console.log('list.js get request error: ', err)
+    })
+});
 
 const form = document.querySelector('.listContainer');
+
 form.addEventListener('submit', (e) => {
   e.preventDefault();
 
@@ -24,9 +41,12 @@ form.addEventListener('submit', (e) => {
     .then((data) => {
       // window.location.href = '/render.html'
       console.log('data: ', data);
-      const listItem = document.createElement('li');
-      listItem.innerHTML = data;
-      document.querySelector('.actualList').append(listItem);
+      allItems = data;
+
     })
 
+
+
 })
+
+

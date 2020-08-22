@@ -62,10 +62,9 @@ fileController.createItem = (req, res, next) => {
 
   db.query(queryString, queryValues)
     .then(data => {
-      console.log('data.rows: ', data.rows);
-      res.locals.item = data.rows[0].title;
-      console.log('fileController.createItem res.locals.item: ', res.locals.item)
+      console.log('data.rows: ', data.rows[0]);
       console.log('last line of .then for createItem HIT ME')
+      res.locals.item = data.rows[0] // this doesn't go anywhere
       return next();
     })
     .catch(err => {
@@ -79,8 +78,21 @@ fileController.createItem = (req, res, next) => {
   console.log('last line of createItem')
 }
 
-
-
+fileController.getItems = (req, res, next) => {
+  const queryString2 = `SELECT * FROM lists`;
+  db.query(queryString2)
+    .then(data => {
+      console.log('====> fileController.getItems, data.rows should be an array of objects: ', data.rows)
+      res.locals.items = data.rows;
+      return next();
+    })
+    .catch(err => {
+      return next({
+        log: `An error occurred while getting all list items: ${err}`,
+        message: { err: "An error occurred in fileController.getItems" },
+      });
+    })
+}
 
 
 

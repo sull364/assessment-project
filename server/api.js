@@ -11,15 +11,17 @@ router.post("/login", fileController.verifyUser, (req, res) => {
   return res.status(200).json("BOB POOP")
 })
 
+router.get("/", fileController.getItems, (req, res) => {
+  return res.status(200).json(res.locals.items);
+})
+
 router.post("/create", fileController.createItem, (req, res) => {
   console.log('create')
   return res.status(200).json(res.locals.item);
 })
 
 
-router.get("/", (req, res) => {
-  return res.status(200).redirect(path.resolve(__dirname, "../index.html"))
-})
+
 
 
 
