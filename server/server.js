@@ -3,7 +3,9 @@ const app = express();
 const path = require('path');
 const apiRouter = require('./api.js');
 const fileController = require("./fileController.js");
+const cookieParser = require("cookie-parser")
 
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

@@ -9,15 +9,21 @@
 </head>
 
 <body>
-  <div class="container">
-    <h1>Today's To Do</h1>
-    <div class="list">
-      <ol class="ordered">
+  <div class="listContainer">
+    <h1>Your One and Only List Don't Try To Make More</h1>
+    <form class="listForm" id="listFormForm">
+      <label class="listForm" id="listItemTitle" for="item">Item:
+        <input class="listForm" id="listItemText" type="text" name="item">
+      </label>
+      <button type="submit" class="listForm" id="listButton">Add Item</button>
+    </form>
+    <div class="listArea">
+      <h4 class="listForm" id="listTitle">To Do Items:</h4>
+      <ol class="actualList">
 
       </ol>
     </div>
-  </div>
-  <script src="./index.js"></script>
+    <script src="client/list.js"></script>
 </body>
 
 
