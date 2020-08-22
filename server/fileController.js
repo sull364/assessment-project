@@ -138,6 +138,10 @@ fileController.updateItem = (req, res, next) => {
     })
 }
 
-
+fileController.removeCookie = (req, res, next) => {
+  res.clearCookie('provider');
+  res.clearCookie('user');
+  return next();
+}
 
 module.exports = fileController;

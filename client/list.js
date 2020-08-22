@@ -200,6 +200,32 @@ document.addEventListener('click', function (event) {
       })
   }
 
+  if (event.target.className == 'logoutButton') {
+    fetch('/api/logout', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+    })
+      .then((res) => {
+        console.log('res:', res);
+        // console.log('res received')
+        return res.json()
+      })
+      .then((data) => {
+        // window.location.href = '/render.html'
+        if (data === 'BOB POOP') {
+          window.location.href = '../index.html'
+        }
+        if (data != 'BOB POOP') {
+          alert('Invalid password or username')
+        }
+      })
+      .catch(err => {
+        console.log('index.js /api/login error: ', err)
+      })
+  }
 
   if (event.target.className === 'buttonUpdate') {
     console.log("event.target: ", event.target)

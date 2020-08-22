@@ -11,6 +11,10 @@ router.post("/login", fileController.verifyUser, (req, res) => {
   return res.status(200).json("BOB POOP")
 })
 
+router.get('/logout', fileController.removeCookie, (req, res) => {
+  return res.redirect('/');
+});
+
 router.get("/", fileController.getItems, (req, res) => {
   return res.status(200).json(res.locals.items);
 })
