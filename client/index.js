@@ -51,28 +51,48 @@ loginForm.addEventListener('submit', (e) => {
     password
   };
 
-
   fetch('/api/login', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
-      'Content-type': 'application/json'
+      'Content-Type': 'application/json'
     },
-    body: JSON.stringify(
-      { email: email, password: password })
-    // credentials: 'include',
+    body: JSON.stringify({ email: email, password: password })
   })
-    .then(res => {
-      console.log('I am in res');
-      return res.json()
+    .then((res) => (
+      // console.log(res);
+      // console.log('res received')
+      res.json()
+    ))
+    .then((data) => {
+      // window.location.href = '/render.html'
+      if (data === 'BOB POOP') {
+        window.location.href = '../list.html'
+      }
     })
-    .then(data => {
-      console.log(data);
-      window.location.href = "../list.html"
-    })
-    .catch(err => {
-      console.log('get request error for api/login: ', err)
-    })
+
+  // fetch('/api/login', {
+  //   method: 'POST',
+  //   headers: {
+  //     'Accept': 'application/json',
+  //     'Content-type': 'application/json'
+  //   },
+  //   body: JSON.stringify(
+  //     { email: email, password: password })
+  //   // credentials: 'include',
+  // })
+  //   .then(res => {
+  //     console.log('I am in res');
+  //     return res.json()
+  //   })
+  //   .then(data => {
+  //     console.log(data);
+  //     window.location.href = "../list.html"
+  //   })
+  //   .catch(err => {
+  //     console.log('get request error for api/login: ', err)
+  //   })
+
   // axios.get("/api/login", user)
   //   .then(res => res.json())
   //   .then(data => console.log(data))

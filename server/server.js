@@ -5,6 +5,8 @@ const apiRouter = require('./api.js');
 const fileController = require("./fileController.js");
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 
 // =============== DEFINE ROUTE HANDLERS =============== //
 app.use('/api', apiRouter)

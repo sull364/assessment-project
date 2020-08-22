@@ -6,14 +6,16 @@ const fs = require('fs');
 
 
 // =============== EXISTING USER, LOGIN =============== //
-router.get("/", (req, res) => {
-  return res.status(200).redirect(path.resolve(__dirname, "../index.html"))
-})
-
 router.post("/login", fileController.verifyUser, (req, res) => {
   console.log('api.js /login hit');
   return res.status(200).json("BOB POOP")
 })
+
+router.get("/", (req, res) => {
+  return res.status(200).redirect(path.resolve(__dirname, "../index.html"))
+})
+
+
 
 // =============== CREATE NEW USER, SIGNUP =============== //
 // router.post("/signup", fileController.createUser, (req, res) => {
