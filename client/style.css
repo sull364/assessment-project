@@ -16,7 +16,15 @@
 }
 .animate-zoom {animation:animatezoom 0.6s}@keyframes animatezoom{from{transform:scale(0)} to{transform:scale(1)}}
 
+.listContainerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
 
+.logoutButton {
+  margin: 20px;
+}
 
 .modalInput{padding:8px;display:block;border:none;border-bottom:1px solid #ccc;width:100%}
 /* Modal Content */

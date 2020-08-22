@@ -8,7 +8,7 @@ const fs = require('fs');
 // =============== EXISTING USER, LOGIN =============== //
 router.post("/login", fileController.verifyUser, (req, res) => {
   console.log('api.js /login hit');
-  return res.status(200).json("BOB POOP")
+  return res.status(200).json("LOGIN")
 })
 
 router.get("/", fileController.getItems, (req, res) => {
@@ -29,5 +29,16 @@ router.patch("/update", fileController.updateItem, (req, res) => {
   console.log('update')
   return res.status(200).json(res.locals.updated);
 })
+
+router.get('/logout', fileController.removeCookie, (req, res) => {
+  console.log('=======> callback function line of router.logout')
+  return res.status(200).json('LOGOUT');
+});
+
+router.post('/signup', fileController.createUser, (req, res) => {
+  console.log('=======> callback function line of router.logout')
+  return res.status(200).json('SIGNUP');
+});
+
 
 module.exports = router;

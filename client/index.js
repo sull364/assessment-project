@@ -37,6 +37,7 @@ $(document).ready(function () {
 
 
   // =============== POST REQUEST FOR /LOGIN =============== //
+  // =============== POST REQUEST FOR /LOGIN =============== //
   const loginForm = document.getElementById("loginFormForm");
   // console.log("index.js loginFormForm:", loginForm);
 
@@ -59,48 +60,82 @@ $(document).ready(function () {
       },
       body: JSON.stringify({ email: email, password: password })
     })
-      .then((res) => (
-        // console.log(res);
+      .then((res) => {
+        console.log('res:', res);
         // console.log('res received')
-        res.json()
-      ))
+        return res.json()
+      })
       .then((data) => {
         // window.location.href = '/render.html'
-        if (data === 'BOB POOP') {
+        if (data === 'LOGIN') {
           window.location.href = '../list.html'
         }
+        if (data != 'LOGIN') {
+          alert('Invalid password or username')
+        }
       })
-
-    // fetch('/api/login', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Accept': 'application/json',
-    //     'Content-type': 'application/json'
-    //   },
-    //   body: JSON.stringify(
-    //     { email: email, password: password })
-    //   // credentials: 'include',
-    // })
-    //   .then(res => {
-    //     console.log('I am in res');
-    //     return res.json()
-    //   })
-    //   .then(data => {
-    //     console.log(data);
-    //     window.location.href = "../list.html"
-    //   })
-    //   .catch(err => {
-    //     console.log('get request error for api/login: ', err)
-    //   })
-
-    // axios.get("/api/login", user)
-    //   .then(res => res.json())
-    //   .then(data => console.log(data))
-    //   .catch(err => {
-    //     console.log('get request error for api/login: ', err)
-    //   })
+      .catch(err => {
+        console.log('index.js /api/login error: ', err)
+      })
+  });
+  // =============== POST REQUEST FOR /LOGIN =============== //
+  // =============== POST REQUEST FOR /LOGIN =============== //
 
 
+
+
+  // =============== POST REQUEST FOR /SIGNUP =============== //
+  // =============== POST REQUEST FOR /SIGNUP =============== //
+  const signupForm = document.getElementById("signupFormForm");
+
+
+  signupForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const email = document.querySelector('#signupEmailText').value;
+    const password = document.querySelector('#signupEnterPasswordText').value;
+    const reenter = document.querySelector('#signupReenterPasswordText').value;
+
+    const user = {
+      email,
+      password,
+      reenter
+    };
+
+    fetch('/api/signup', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email: email, password: password, reenter: reenter })
+    })
+      .then((res) => {
+        console.log('res:', res);
+        // console.log('res received')
+        return res.json()
+      })
+      .then((data) => {
+        // window.location.href = '/render.html'
+        if (data == 'SIGNUP') {
+          window.location.href = '../list.html'
+        }
+        if (data == 'Passwords do not match') {
+          alert(data)
+        }
+        if (data == 'Username already exists') {
+          alert(data)
+          window.location.href = '../index.html'
+        }
+      })
+      .catch(err => {
+        console.log('index.js /api/signup error: ', err)
+      })
   });
 
+
+
+
+  // =============== POST REQUEST FOR /SIGNUP =============== //
+  // =============== POST REQUEST FOR /SIGNUP =============== //
 });
