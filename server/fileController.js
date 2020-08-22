@@ -28,13 +28,16 @@ fileController.verifyUser = (req, res, next) => {
   db.query(queryString, queryValues)
     .then(data => {
       console.log('data.rows: ', data.rows);
+      if (!data.rows[0]) {
+        return res.json('Please enter correct password')
+      }
+
       if (data.rows[0].password == password) {
         res.cookie('email', email);
         console.log('second line of try block HIT ME')
         return next();
-      } else {
-        return res.send('Please enter correct password')
       }
+
     })
     .catch(err => {
       return next({

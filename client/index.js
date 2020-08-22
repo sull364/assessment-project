@@ -59,16 +59,22 @@ $(document).ready(function () {
       },
       body: JSON.stringify({ email: email, password: password })
     })
-      .then((res) => (
-        // console.log(res);
+      .then((res) => {
+        console.log('res:', res);
         // console.log('res received')
-        res.json()
-      ))
+        return res.json()
+      })
       .then((data) => {
         // window.location.href = '/render.html'
         if (data === 'BOB POOP') {
           window.location.href = '../list.html'
         }
+        if (data != 'BOB POOP') {
+          alert('Invalid password or username')
+        }
+      })
+      .catch(err => {
+        console.log('index.js /api/login error: ', err)
       })
 
     // fetch('/api/login', {
